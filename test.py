@@ -62,34 +62,24 @@ class Window(QMainWindow):
 
     def paintEvent(self, event):
         pp = QPainter(self.pix)
-        # Нарисуйте прямую линию в соответствии с двумя положениями до и после указателя мыши
         pp.drawLine(self.lastPoint, self.endPoint)
-        # Сделать предыдущее значение координаты равным следующему значению координаты,
-        # Таким образом можно нарисовать непрерывную линию
         self.lastPoint = self.endPoint
         painter = QPainter(self)
-        painter.drawPixmap(0, 0, self.pix)  # Рисуем на холсте
+        painter.drawPixmap(0, 0, self.pix)
 
     def mousePressEvent(self, event):
-        # Нажми левую кнопку мыши
         if event.button() == Qt.LeftButton:
             self.lastPoint = event.pos()
             self.endPoint = self.lastPoint
 
-    # Событие движения мыши
     def mouseMoveEvent(self, event):
-        # Перемещай мышь, удерживая нажатой левую кнопку мыши
         if event.buttons() and Qt.LeftButton:
             self.endPoint = event.pos()
-            # Сделать перекраску
             self.update()
 
-    # Событие отпускания мыши
     def mouseReleaseEvent(self, event):
-        # Отпустить левую кнопку мыши
         if event.button() == Qt.LeftButton:
             self.endPoint = event.pos()
-            # Сделать перекраску
             self.update()
 
 
